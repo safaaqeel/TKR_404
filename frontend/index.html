@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VigilAI — Business Distress Intelligence</title>
+<meta name="description" content="VigilAI: agentic AI platform for early detection of financial distress in MSMEs." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===================== SKIP LINK ===================== -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- ===================== APP SHELL ===================== -->
+<div class="app-shell" id="app-shell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+    <div class="sidebar__brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28">
+          <polyline points="2,17 9,17 12,7 18,25 21,17 30,17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="brand-word">Vigil<em>AI</em></span>
+      <button class="sidebar__collapse-btn" id="sidebarCollapseBtn" aria-label="Collapse sidebar" aria-expanded="true">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <nav class="sidebar__nav">
+      <ul class="nav-list" role="list">
+        <li><a href="#" class="nav-item is-active" data-page="dashboard"><span class="nav-icon" aria-hidden="true">▣</span><span class="nav-label">Dashboard</span></a></li>
+        <li><a href="#" class="nav-item" data-page="health"><span class="nav-icon" aria-hidden="true">♡</span><span class="nav-label">Business Health</span></a></li>
+        <li><a href="#" class="nav-item" data-page="checkin"><span class="nav-icon" aria-hidden="true">✓</span><span class="nav-label">Daily Check-in</span></a></li>
+        <li><a href="#" class="nav-item" data-page="recommendations"><span class="nav-icon" aria-hidden="true">✦</span><span class="nav-label">Recommendations</span></a></li>
+        <li><a href="#" class="nav-item" data-page="agents"><span class="nav-icon" aria-hidden="true">◈</span><span class="nav-label">AI Decision Board</span></a></li>
+        <li><a href="#" class="nav-item" data-page="recovery"><span class="nav-icon" aria-hidden="true">↻</span><span class="nav-label">Financial Recovery</span></a></li>
+        <li><a href="#" class="nav-item" data-page="growth"><span class="nav-icon" aria-hidden="true">↗</span><span class="nav-label">Growth Opportunities</span></a></li>
+        <li><a href="#" class="nav-item" data-page="simulator"><span class="nav-icon" aria-hidden="true">⚙</span><span class="nav-label">What-if Simulator</span></a></li>
+        <li><a href="#" class="nav-item" data-page="schemes"><span class="nav-icon" aria-hidden="true">🏛</span><span class="nav-label">Government Schemes</span></a></li>
+        <li><a href="#" class="nav-item" data-page="reports"><span class="nav-icon" aria-hidden="true">▤</span><span class="nav-label">Reports</span></a></li>
+        <li><a href="#" class="nav-item" data-page="knowledge"><span class="nav-icon" aria-hidden="true">▥</span><span class="nav-label">Knowledge Base</span></a></li>
+      </ul>
+      <ul class="nav-list nav-list--footer" role="list">
+        <li><a href="#" class="nav-item" data-page="settings"><span class="nav-icon" aria-hidden="true">⚬</span><span class="nav-label">Settings</span></a></li>
+        <li><a href="#" class="nav-item" id="logoutBtn"><span class="nav-icon" aria-hidden="true">⏻</span><span class="nav-label">Logout</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ===================== MAIN COLUMN ===================== -->
+  <div class="main-column">
+
+    <!-- ===================== TOP NAVBAR ===================== -->
+    <header class="topbar">
+      <button class="icon-btn topbar__menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="topbar__search">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="search" id="globalSearch" placeholder="Search reports, agents, documents…" aria-label="Global search" />
+        <kbd>/</kbd>
+      </div>
+
+      <div class="topbar__spacer"></div>
+
+      <div class="topbar__actions">
+        <button class="icon-btn" id="darkModeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+
+        <div class="notif-wrap">
+          <button class="icon-btn" id="notifBtn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="19" height="19"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7 21a2 2 0 01-3.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span class="badge-dot" id="notifCount">4</span>
+          </button>
+          <div class="dropdown-panel" id="notifPanel" role="menu" hidden>
+            <div class="dropdown-panel__header"><h3>Notifications</h3><button class="text-btn" id="markAllReadBtn">Mark all read</button></div>
+            <ul class="notif-list" id="notifList"></ul>
+          </div>
+        </div>
+
+        <button class="icon-btn" id="settingsShortcut" aria-label="Settings" data-page="settings">
+          <svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.9 2.9l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.6V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1-1.6 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.9-2.9l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.6-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.6-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.9-2.9l.1.1a1.7 1.7 0 001.9.3H9a1.7 1.7 0 001-1.6V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.6 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.9 2.9l-.1.1a1.7 1.7 0 00-.3 1.9V9a1.7 1.7 0 001.6 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.6 1z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+
+        <div class="profile-wrap">
+          <button class="profile-btn" id="profileBtn" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar">RM</span>
+            <span class="profile-btn__meta">
+              <span class="profile-btn__name">Rhea Malhotra</span>
+              <span class="profile-btn__role">Owner · Meridian Textiles</span>
+            </span>
+          </button>
+          <div class="dropdown-panel dropdown-panel--sm" id="profilePanel" role="menu" hidden>
+            <a href="#" role="menuitem" data-page="settings">Account settings</a>
+            <a href="#" role="menuitem" data-page="reports">My reports</a>
+            <a href="#" role="menuitem" id="logoutBtn2">Log out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="main-content" id="main-content">
+
+      <!-- ============ PAGE: DASHBOARD ============ -->
+      <section class="page is-active" id="page-dashboard" data-page="dashboard" aria-labelledby="dashboard-title">
+        <div class="welcome-card">
+          <div class="welcome-card__left">
+            <p class="eyebrow">Good morning</p>
+            <h1 id="dashboard-title">Meridian Textiles Pvt. Ltd.</h1>
+            <p class="welcome-card__sub">Last full analysis run <strong id="lastAnalysisTime">14 minutes ago</strong> across 6 monitored signal streams.</p>
+            <div class="welcome-card__pills">
+              <span class="pill pill--amber">Risk Level: <strong>Moderate</strong></span>
+              <span class="pill">Business Pulse: <strong>72 / 100</strong></span>
+            </div>
+          </div>
+          <div class="welcome-card__gauge">
+            <div class="gauge" id="healthGauge" role="img" aria-label="Today's health score is 78 out of 100">
+              <svg viewBox="0 0 160 160">
+                <circle class="gauge__track" cx="80" cy="80" r="68" />
+                <circle class="gauge__fill" id="gaugeFill" cx="80" cy="80" r="68" />
+              </svg>
+              <div class="gauge__value"><span id="gaugeScore">78</span><small>Health Score</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="widget-grid">
+          <article class="card card--metric" data-metric="risk">
+            <header class="card__header"><h3>Financial Distress Risk</h3><span class="badge badge--amber">Moderate</span></header>
+            <p class="metric-value">31<span>%</span></p>
+            <p class="metric-caption">↓ 4 pts vs last week — driven by improved receivables</p>
+            <div class="mini-bar"><span style="width:31%"></span></div>
+          </article>
+
+          <article class="card card--metric" data-metric="pulse">
+            <header class="card__header"><h3>Business Pulse Score</h3><span class="badge badge--green">Stable</span></header>
+            <p class="metric-value">72<span>/100</span></p>
+            <p class="metric-caption">Composite of 9 operational signals, refreshed hourly</p>
+            <svg class="pulse-line" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true">
+              <polyline points="0,28 20,26 35,10 50,30 65,18 80,22 95,6 110,24 125,20 140,12 155,26 170,16 185,22 200,14" />
+            </svg>
+          </article>
+
+          <article class="card card--chart">
+            <header class="card__header"><h3>Revenue Trend</h3><span class="badge badge--outline">90 days</span></header>
+            <div class="chart-wrap"><canvas id="chartRevenue" height="160"></canvas></div>
+          </article>
+
+          <article class="card card--chart">
+            <header class="card__header"><h3>Cash Flow Trend</h3><span class="badge badge--outline">This quarter</span></header>
+            <div class="chart-wrap"><canvas id="chartCashflow" height="160"></canvas></div>
+          </article>
+
+          <article class="card card--metric" data-metric="csat">
+            <header class="card__header"><h3>Customer Satisfaction</h3><span class="badge badge--green">Healthy</span></header>
+            <p class="metric-value">4.4<span>/5</span></p>
+            <p class="metric-caption">128 responses collected this month</p>
+            <div class="mini-bar"><span style="width:88%"></span></div>
+          </article>
+
+          <article class="card card--metric" data-metric="inventory">
+            <header class="card__header"><h3>Inventory Health</h3><span class="badge badge--amber">Watch</span></header>
+            <p class="metric-value">63<span>/100</span></p>
+            <p class="metric-caption">2 SKUs approaching stockout within 9 days</p>
+            <div class="mini-bar"><span style="width:63%"></span></div>
+          </article>
+
+          <article class="card card--metric" data-metric="supplier">
+            <header class="card__header"><h3>Supplier Reliability</h3><span class="badge badge--green">Healthy</span></header>
+            <p class="metric-value">91<span>/100</span></p>
+            <p class="metric-caption">On-time delivery rate steady across 6 vendors</p>
+            <div class="mini-bar"><span style="width:91%"></span></div>
+          </article>
+
+          <article class="card card--metric" data-metric="employee">
+            <header class="card__header"><h3>Employee Stability</h3><span class="badge badge--green">Healthy</span></header>
+            <p class="metric-value">85<span>/100</span></p>
+            <p class="metric-caption">Attendance and retention within normal range</p>
+            <div class="mini-bar"><span style="width:85%"></span></div>
+          </article>
+
+          <article class="card card--metric" data-metric="market">
+            <header class="card__header"><h3>Market Opportunity Score</h3><span class="badge badge--outline">New</span></header>
+            <p class="metric-value">57<span>/100</span></p>
+            <p class="metric-caption">3 emerging segments identified this month</p>
+            <div class="mini-bar"><span style="width:57%"></span></div>
+          </article>
+
+          <article class="card card--metric" data-metric="compliance">
+            <header class="card__header"><h3>Compliance Status</h3><span class="badge badge--red">Action needed</span></header>
+            <p class="metric-value">1<span> filing due</span></p>
+            <p class="metric-caption">GST return due in 3 days</p>
+          </article>
+
+          <article class="card card--list card--span2">
+            <header class="card__header"><h3>Recommendation Summary</h3><a class="text-btn" href="#" data-page="recommendations">View all</a></header>
+            <ul class="summary-list" id="dashRecoList"></ul>
+          </article>
+
+          <article class="card card--list">
+            <header class="card__header"><h3>Recent Notifications</h3></header>
+            <ul class="summary-list" id="dashNotifList"></ul>
+          </article>
+
+          <article class="card card--list card--span2">
+            <header class="card__header"><h3>AI Insights</h3><span class="badge badge--outline">Generated 14m ago</span></header>
+            <ul class="insight-list" id="aiInsightsList"></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ PAGE: BUSINESS HEALTH ============ -->
+      <section class="page" id="page-health" data-page="health" aria-labelledby="health-title">
+        <div class="page-header"><h1 id="health-title">Business Health</h1><p>A deeper breakdown of every signal feeding your health score.</p></div>
+        <div class="widget-grid" id="healthDetailGrid"></div>
+      </section>
+
+      <!-- ============ PAGE: DAILY CHECK-IN ============ -->
+      <section class="page" id="page-checkin" data-page="checkin" aria-labelledby="checkin-title">
+        <div class="page-header"><h1 id="checkin-title">Daily Business Check-in</h1><p>Two minutes today keeps tomorrow's forecast sharp.</p></div>
+
+        <div class="checkin-layout">
+          <form class="card checkin-form" id="checkinForm" novalidate>
+            <div class="progress-bar" aria-hidden="true"><span id="checkinProgressFill" style="width:0%"></span></div>
+            <p class="checkin-progress-label"><span id="checkinProgressText">0</span> of <span id="checkinTotal">10</span> answered</p>
+
+            <div class="form-field">
+              <label for="ci-sales">Sales today (₹)</label>
+              <input type="number" id="ci-sales" name="sales" min="0" placeholder="e.g. 42000" required />
+            </div>
+            <div class="form-field">
+              <label for="ci-complaints">Customer complaints received</label>
+              <input type="number" id="ci-complaints" name="complaints" min="0" placeholder="0" required />
+            </div>
+            <div class="form-field">
+              <label for="ci-delays">Supplier delays reported</label>
+              <select id="ci-delays" name="delays" required>
+                <option value="">Select</option><option>None</option><option>1 supplier</option><option>2+ suppliers</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="ci-inventory">Any inventory issues?</label>
+              <select id="ci-inventory" name="inventory" required>
+                <option value="">Select</option><option>None</option><option>Low stock</option><option>Excess stock</option><option>Damaged goods</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="ci-attendance">Employee attendance (%)</label>
+              <input type="number" id="ci-attendance" name="attendance" min="0" max="100" placeholder="e.g. 95" required />
+            </div>
+            <div class="form-field">
+              <label for="ci-expenses">Unexpected expenses (₹)</label>
+              <input type="number" id="ci-expenses" name="expenses" min="0" placeholder="0" required />
+            </div>
+            <div class="form-field">
+              <label for="ci-competitors">New competitors noticed?</label>
+              <select id="ci-competitors" name="competitors" required>
+                <option value="">Select</option><option>No</option><option>Yes, nearby</option><option>Yes, online</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="ci-marketchange">Notable market changes</label>
+              <input type="text" id="ci-marketchange" name="marketchange" placeholder="e.g. raw material price shift" />
+            </div>
+            <div class="form-field">
+              <label for="ci-feedback">Customer feedback highlights</label>
+              <input type="text" id="ci-feedback" name="feedback" placeholder="Optional summary" />
+            </div>
+            <div class="form-field form-field--full">
+              <label for="ci-notes">Business notes</label>
+              <textarea id="ci-notes" name="notes" rows="3" placeholder="Anything else worth flagging today?"></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn--ghost" id="checkinSaveBtn">Save draft</button>
+              <button type="submit" class="btn btn--primary">Submit check-in</button>
+            </div>
+            <p class="form-status" id="checkinStatus" role="status" aria-live="polite"></p>
+          </form>
+
+          <aside class="card checkin-tip">
+            <h3>Why this matters</h3>
+            <p>Daily check-ins feed the CFO and Risk agents directly, tightening distress predictions by up to 22% compared to monthly-only data.</p>
+            <ul class="tip-list">
+              <li>Takes under 2 minutes</li>
+              <li>Auto-saves as you type</li>
+              <li>Streak: <strong>11 days</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ PAGE: RECOMMENDATIONS ============ -->
+      <section class="page" id="page-recommendations" data-page="recommendations" aria-labelledby="reco-title">
+        <div class="page-header">
+          <h1 id="reco-title">Recommendations</h1>
+          <p>Prioritized actions generated from your latest analysis.</p>
+        </div>
+        <div class="filter-tabs" role="tablist" aria-label="Filter by priority">
+          <button class="filter-tab is-active" data-priority="all" role="tab" aria-selected="true">All</button>
+          <button class="filter-tab" data-priority="High" role="tab" aria-selected="false">High</button>
+          <button class="filter-tab" data-priority="Medium" role="tab" aria-selected="false">Medium</button>
+          <button class="filter-tab" data-priority="Low" role="tab" aria-selected="false">Low</button>
+        </div>
+        <div class="reco-grid" id="recoGrid"></div>
+      </section>
+
+      <!-- ============ PAGE: AI DECISION BOARD ============ -->
+      <section class="page" id="page-agents" data-page="agents" aria-labelledby="agents-title">
+        <div class="page-header"><h1 id="agents-title">AI Decision Board</h1><p>Eight specialist agents continuously analyzing your business.</p></div>
+        <div class="agent-grid" id="agentGrid"></div>
+      </section>
+
+      <!-- ============ PAGE: FINANCIAL RECOVERY ============ -->
+      <section class="page" id="page-recovery" data-page="recovery" aria-labelledby="recovery-title">
+        <div class="page-header"><h1 id="recovery-title">Financial Recovery Plan</h1><p>Structured path back to a healthy cash position.</p></div>
+        <div class="card recovery-summary">
+          <div><span class="eyebrow">Target</span><p class="metric-value">₹3.2L<span> buffer</span></p></div>
+          <div><span class="eyebrow">Timeline</span><p class="metric-value">90<span> days</span></p></div>
+          <div><span class="eyebrow">Confidence</span><p class="metric-value">76<span>%</span></p></div>
+        </div>
+        <ol class="recovery-steps" id="recoverySteps"></ol>
+      </section>
+
+      <!-- ============ PAGE: GROWTH OPPORTUNITIES ============ -->
+      <section class="page" id="page-growth" data-page="growth" aria-labelledby="growth-title">
+        <div class="page-header"><h1 id="growth-title">Growth Opportunities</h1><p>Emerging segments and expansion paths worth evaluating.</p></div>
+        <div class="reco-grid" id="growthGrid"></div>
+      </section>
+
+      <!-- ============ PAGE: WHAT-IF SIMULATOR ============ -->
+      <section class="page" id="page-simulator" data-page="simulator" aria-labelledby="sim-title">
+        <div class="page-header"><h1 id="sim-title">What-if Simulator</h1><p>Model a decision before you make it.</p></div>
+
+        <div class="sim-layout">
+          <form class="card sim-form" id="simForm">
+            <div class="form-field">
+              <label for="sim-hire">Hire employees</label>
+              <input type="range" id="sim-hire" min="0" max="10" value="0" />
+              <output for="sim-hire" id="sim-hire-out">0 people</output>
+            </div>
+            <div class="form-field">
+              <label for="sim-machinery">Buy machinery (₹)</label>
+              <input type="range" id="sim-machinery" min="0" max="1000000" step="10000" value="0" />
+              <output for="sim-machinery" id="sim-machinery-out">₹0</output>
+            </div>
+            <div class="form-field">
+              <label for="sim-loan">Take loan (₹)</label>
+              <input type="range" id="sim-loan" min="0" max="2000000" step="50000" value="0" />
+              <output for="sim-loan" id="sim-loan-out">₹0</output>
+            </div>
+            <div class="form-field">
+              <label for="sim-price">Increase prices (%)</label>
+              <input type="range" id="sim-price" min="0" max="30" value="0" />
+              <output for="sim-price" id="sim-price-out">0%</output>
+            </div>
+            <div class="form-field">
+              <label class="checkbox-field"><input type="checkbox" id="sim-newproduct" /> Launch new product line</label>
+            </div>
+            <div class="form-field">
+              <label class="checkbox-field"><input type="checkbox" id="sim-newbranch" /> Open new branch</label>
+            </div>
+            <button type="button" class="btn btn--primary" id="simRunBtn">Run simulation</button>
+          </form>
+
+          <div class="sim-results">
+            <div class="widget-grid">
+              <article class="card card--metric"><header class="card__header"><h3>Expected Profit</h3></header><p class="metric-value" id="simProfit">₹0</p></article>
+              <article class="card card--metric"><header class="card__header"><h3>Risk</h3></header><p class="metric-value" id="simRisk">—</p></article>
+              <article class="card card--metric"><header class="card__header"><h3>Cash Flow</h3></header><p class="metric-value" id="simCashflow">₹0</p></article>
+            </div>
+            <article class="card card--chart"><header class="card__header"><h3>Projected 12-month cash flow</h3></header><div class="chart-wrap"><canvas id="chartSimulator" height="180"></canvas></div></article>
+            <article class="card" id="simRecoCard"><header class="card__header"><h3>Recommendation</h3></header><p id="simRecoText">Adjust the levers above and run a simulation to see a tailored recommendation.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PAGE: GOVERNMENT SCHEMES ============ -->
+      <section class="page" id="page-schemes" data-page="schemes" aria-labelledby="schemes-title">
+        <div class="page-header"><h1 id="schemes-title">Government Schemes</h1><p>Programs your business may currently be eligible for.</p></div>
+        <div class="reco-grid" id="schemesGrid"></div>
+      </section>
+
+      <!-- ============ PAGE: REPORTS ============ -->
+      <section class="page" id="page-reports" data-page="reports" aria-labelledby="reports-title">
+        <div class="page-header"><h1 id="reports-title">Reports</h1><p>Generate and export a snapshot of your business.</p></div>
+        <div class="reports-grid" id="reportsGrid"></div>
+      </section>
+
+      <!-- ============ PAGE: KNOWLEDGE BASE ============ -->
+      <section class="page" id="page-knowledge" data-page="knowledge" aria-labelledby="kb-title">
+        <div class="page-header"><h1 id="kb-title">Knowledge Base</h1><p>Guides, policies and answers, all in one place.</p></div>
+
+        <div class="kb-search">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="search" id="kbSearch" placeholder="Search the knowledge base…" aria-label="Search knowledge base" />
+        </div>
+
+        <div class="kb-layout">
+          <div>
+            <h2 class="kb-subhead">Recent Documents</h2>
+            <ul class="kb-doc-list" id="kbRecentList"></ul>
+            <h2 class="kb-subhead">Government Policies</h2>
+            <ul class="kb-doc-list" id="kbPolicyList"></ul>
+            <h2 class="kb-subhead">Finance &amp; Business Guides</h2>
+            <ul class="kb-doc-list" id="kbGuideList"></ul>
+            <h2 class="kb-subhead">FAQ</h2>
+            <div class="faq-list" id="faqList"></div>
+          </div>
+          <aside class="card kb-preview" id="kbPreview">
+            <p class="kb-preview__empty">Select a document to preview it here.</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ PAGE: SETTINGS ============ -->
+      <section class="page" id="page-settings" data-page="settings" aria-labelledby="settings-title">
+        <div class="page-header"><h1 id="settings-title">Settings</h1><p>Manage your profile, alerts and preferences.</p></div>
+        <div class="settings-grid">
+          <div class="card">
+            <h3>Profile</h3>
+            <div class="form-field"><label for="set-name">Full name</label><input id="set-name" type="text" value="Rhea Malhotra" /></div>
+            <div class="form-field"><label for="set-business">Business name</label><input id="set-business" type="text" value="Meridian Textiles Pvt. Ltd." /></div>
+            <div class="form-field"><label for="set-email">Email</label><input id="set-email" type="email" value="rhea@meridiantextiles.in" /></div>
+            <button class="btn btn--primary">Save changes</button>
+          </div>
+          <div class="card">
+            <h3>Alert preferences</h3>
+            <label class="switch-field"><span>Financial risk alerts</span><input type="checkbox" checked /></label>
+            <label class="switch-field"><span>Government scheme updates</span><input type="checkbox" checked /></label>
+            <label class="switch-field"><span>Supplier &amp; inventory alerts</span><input type="checkbox" checked /></label>
+            <label class="switch-field"><span>Weekly summary email</span><input type="checkbox" /></label>
+          </div>
+          <div class="card">
+            <h3>Appearance</h3>
+            <label class="switch-field"><span>Dark mode</span><input type="checkbox" id="settingsDarkToggle" /></label>
+            <label class="switch-field"><span>Compact sidebar</span><input type="checkbox" id="settingsSidebarToggle" /></label>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="app-footer">
+      <p>© 2026 VigilAI. Early-warning intelligence for MSMEs.</p>
+      <p class="app-footer__meta">API status: <span class="status-dot status-dot--green"></span> All systems operational</p>
+    </footer>
+  </div>
+</div>
+
+<!-- ===================== MODAL: DOCUMENT PREVIEW / GENERIC ===================== -->
+<div class="modal-backdrop" id="modalBackdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header class="modal__header">
+      <h2 id="modalTitle">Details</h2>
+      <button class="icon-btn" id="modalCloseBtn" aria-label="Close dialog">✕</button>
+    </header>
+    <div class="modal__body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ===================== TOAST ===================== -->
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- ===================== MOBILE SIDEBAR OVERLAY ===================== -->
+<div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
