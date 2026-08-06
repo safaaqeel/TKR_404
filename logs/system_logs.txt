@@ -1,0 +1,44 @@
+2026-08-01 09:02:14 | INFO     | app.main               | VigilAI application startup initiated
+2026-08-01 09:02:14 | INFO     | app.config             | Environment loaded: development
+2026-08-01 09:02:14 | INFO     | app.config             | Configuration validated successfully — all required settings present
+2026-08-01 09:02:15 | INFO     | models.model_loader    | Loading Gemini model: gemini-2.5-flash
+2026-08-01 09:02:15 | INFO     | models.model_loader    | Gemini client initialized successfully
+2026-08-01 09:02:16 | INFO     | rag.embeddings         | Loading embedding model: all-MiniLM-L6-v2
+2026-08-01 09:02:18 | INFO     | rag.embeddings         | Embedding model loaded (dimension=384)
+2026-08-01 09:02:18 | INFO     | rag.chromadb_client    | Connecting to ChromaDB at ./database/chromadb
+2026-08-01 09:02:18 | INFO     | rag.chromadb_client    | Collection 'vigilai_knowledge_base' loaded — 47 documents indexed
+2026-08-01 09:02:19 | INFO     | agents.orchestrator    | Initializing multi-agent workflow graph
+2026-08-01 09:02:19 | INFO     | agents.orchestrator    | Registered agents: FinancialAnalysisAgent, RiskAssessmentAgent, ComplianceAgent, RecommendationAgent
+2026-08-01 09:02:19 | INFO     | app.main               | FastAPI server started on 0.0.0.0:8000
+2026-08-01 09:03:41 | INFO     | app.routes.auth        | Login successful | user_id=usr_10432
+2026-08-01 09:04:02 | INFO     | app.routes.upload      | File received | filename=Q1_financials.xlsx | size_kb=812
+2026-08-01 09:04:02 | INFO     | rag.ingestion          | Document chunking started | chunk_size=800 | overlap=100
+2026-08-01 09:04:03 | INFO     | rag.ingestion          | 14 chunks generated and embedded
+2026-08-01 09:04:03 | INFO     | rag.chromadb_client    | Chunks added to collection 'vigilai_knowledge_base'
+2026-08-01 09:04:05 | INFO     | agents.orchestrator    | Workflow triggered | workflow=financial_distress_scan | request_id=req_88213
+2026-08-01 09:04:05 | INFO     | agents.financial_agent | Computing financial ratios from uploaded statement
+2026-08-01 09:04:06 | INFO     | agents.financial_agent | Current Ratio=1.12 | Quick Ratio=0.79 | DSCR=1.31
+2026-08-01 09:04:06 | WARNING  | agents.risk_agent      | Quick ratio below healthy threshold (0.8) — flagging for review
+2026-08-01 09:04:07 | INFO     | agents.recommendation_agent | Generating recommendations via Gemini (gemini-2.5-flash)
+2026-08-01 09:04:09 | INFO     | agents.recommendation_agent | Recommendation set generated | tokens_used=1420
+2026-08-01 09:04:09 | INFO     | agents.orchestrator    | Workflow completed | request_id=req_88213 | duration_ms=4021
+2026-08-01 09:04:09 | INFO     | app.routes.reports     | Report persisted | report_id=rpt_55210 | path=./database/json/reports.json
+2026-08-01 09:11:27 | INFO     | app.routes.auth        | Login successful | user_id=usr_10501
+2026-08-01 09:12:03 | ERROR    | rag.chromadb_client    | Query failed | error=Collection query timeout after 60s | request_id=req_88240
+2026-08-01 09:12:03 | WARNING  | agents.orchestrator    | Falling back to non-RAG response mode for request_id=req_88240
+2026-08-01 09:12:05 | INFO     | agents.orchestrator    | Fallback response generated successfully | request_id=req_88240
+2026-08-01 09:15:44 | INFO     | app.routes.upload      | File rejected | filename=archive.rar | reason=extension not in ALLOWED_FILE_EXTENSIONS
+2026-08-01 09:22:10 | INFO     | app.scheduler          | Daily risk re-scan job started | scope=all_active_msmes
+2026-08-01 09:22:48 | INFO     | app.scheduler          | Daily risk re-scan job completed | msmes_scanned=132 | flagged=9
+2026-08-01 09:23:01 | WARNING  | app.notifications      | SMTP_HOST not configured — email notification skipped | notification_id=notif_3391
+2026-08-01 09:23:01 | INFO     | app.notifications      | Notification logged to in-app queue instead | notification_id=notif_3391
+2026-08-01 09:40:12 | INFO     | app.routes.auth        | Token refresh successful | user_id=usr_10432
+2026-08-01 10:02:55 | ERROR    | models.model_loader    | Gemini API request failed | status_code=429 | error=Rate limit exceeded
+2026-08-01 10:02:55 | WARNING  | agents.orchestrator    | Retrying Gemini request | attempt=2/3 | backoff_ms=2000
+2026-08-01 10:02:58 | INFO     | models.model_loader    | Gemini API request succeeded on retry | attempt=2/3
+2026-08-01 10:15:33 | INFO     | app.routes.reports     | Report exported | report_id=rpt_55210 | format=pdf
+2026-08-01 10:30:00 | INFO     | app.health             | Health check passed | db=ok | chromadb=ok | gemini=ok
+2026-08-01 11:05:19 | CRITICAL | app.config             | Startup aborted on secondary worker — GEMINI_API_KEY missing in environment
+2026-08-01 11:05:19 | CRITICAL | app.main               | Application failed fast per configuration policy — shutting down
+2026-08-01 11:07:02 | INFO     | app.main               | VigilAI application restarted after configuration fix
+2026-08-01 11:07:02 | INFO     | app.config             | Configuration validated successfully — all required settings present
