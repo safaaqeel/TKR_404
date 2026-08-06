@@ -1,0 +1,31 @@
+startup_id,startup_name,founder_name,sector,city,state,founded_year,funding_stage,total_funding_inr,employees,status
+STUP0001,Copperlineworks,Priya Pillai,EdTech,Lucknow,Uttar Pradesh,2019,Bootstrapped,0,143,Active
+STUP0002,Novagenly,Priya Kulkarni,AgriTech,Hyderabad,Telangana,2022,N/A,0,32,Closed
+STUP0003,Amberlightworks,Arjun Rao,SaaS,Jaipur,Rajasthan,2022,Series B,771446962,64,Active
+STUP0004,Golden Harvestlabs,Rohan Bose,PropTech,Vadodara,Gujarat,2023,N/A,0,36,Closed
+STUP0005,Highstreetio,Aarav Nair,E-commerce,Nizamabad,Telangana,2024,Series B,366938258,150,Active
+STUP0006,Redstonelabs,Neha Gupta,FoodTech,Udaipur,Rajasthan,2023,Seed,481476614,98,Acquired
+STUP0007,Everlineworks,Vikram Patel,LogisticsTech,Vadodara,Gujarat,2015,Seed,750933239,83,Active
+STUP0008,Trueform,Diya Menon,Fintech,Amritsar,Punjab,2017,Acquired,411343829,130,Acquired
+STUP0009,Brightwellly,Karthik Bose,SaaS,Kolkata,West Bengal,2015,Bootstrapped,0,38,Active
+STUP0010,Fernwoodio,Sanjay Verma,LogisticsTech,Surat,Gujarat,2016,Bootstrapped,0,86,Active
+STUP0011,Trueformio,Anjali Kulkarni,FoodTech,Udaipur,Rajasthan,2015,N/A,0,160,Closed
+STUP0012,Amberlightify,Ishaan Rao,AgriTech,Nizamabad,Telangana,2016,Acquired,736868441,115,Active
+STUP0013,Greenfieldio,Vivaan Nair,CleanTech,Nashik,Maharashtra,2020,Bootstrapped,0,112,Active
+STUP0014,Skyline,Kavya Iyer,EdTech,Nagpur,Maharashtra,2016,Series C,444437192,158,Active
+STUP0015,Ashwoodify,Anjali Bose,PropTech,Ahmedabad,Gujarat,2017,N/A,0,61,Closed
+STUP0016,Ashwoodly,Rahul Bose,E-commerce,Vadodara,Gujarat,2023,Series B,276154962,42,Active
+STUP0017,Amberlight,Pooja Pillai,E-commerce,Nizamabad,Telangana,2022,Series A,632900313,79,Acquired
+STUP0018,Everlinelabs,Suresh Gupta,PropTech,Bengaluru Urban,Karnataka,2019,Series B,116518079,77,Acquired
+STUP0019,Skyline,Vivaan Bose,PropTech,Hyderabad,Telangana,2022,Series A,10695125,75,Acquired
+STUP0020,Everline,Rohan Verma,E-commerce,Kochi,Kerala,2017,Series C,380301747,162,Active
+STUP0021,Greenfieldworks,Neha Pillai,EdTech,Pune,Maharashtra,2016,Series A,475330302,77,Active
+STUP0022,Golden Harvestworks,Neha Chatterjee,FoodTech,Coimbatore,Tamil Nadu,2019,Seed,217601773,44,Acquired
+STUP0023,Bluebirdlabs,Ishaan Iyer,HealthTech,Hubballi,Karnataka,2021,Series A,365692735,144,Acquired
+STUP0024,Crestwoodworks,Ananya Menon,CleanTech,Madurai,Tamil Nadu,2019,Series B,16945047,151,Active
+STUP0025,Ashwoodify,Anjali Sharma,PropTech,Ahmedabad,Gujarat,2023,Bootstrapped,0,85,Active
+STUP0026,Copperlinelabs,Meera Naidu,LogisticsTech,Howrah,West Bengal,2016,Acquired,69878777,37,Active
+STUP0027,Bluebirdly,Priya Bose,FoodTech,Warangal,Telangana,2017,Series A,530951656,101,Active
+STUP0028,Larkspurworks,Pooja Verma,EdTech,Vadodara,Gujarat,2021,Acquired,799940629,169,Active
+STUP0029,Crestwoodly,Neha Patel,SaaS,Pune,Maharashtra,2022,Series C,440211092,62,Acquired
+STUP0030,Redstone,Neha Sharma,LogisticsTech,Madurai,Tamil Nadu,2019,Acquired,396422907,50,Active

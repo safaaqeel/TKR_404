@@ -1,0 +1,9 @@
+{
+  "sessions": [],
+  "settings": {
+    "notification_email": "",
+    "smtp_configured": false,
+    "default_retrieval_k": 5
+  },
+  "knowledge_base_index": []
+}

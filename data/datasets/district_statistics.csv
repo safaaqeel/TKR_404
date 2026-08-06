@@ -1,0 +1,27 @@
+district,state,population,literacy_rate_pct,number_of_registered_msmes,avg_household_income_inr,unemployment_rate_pct,primary_industries
+Hyderabad,Telangana,8487516,85.1,17283,324972,9.2,Agro Products; Auto Components; Handicrafts
+Warangal,Telangana,7284725,86.3,11233,394902,5.6,Pharmaceuticals; IT Services; Retail Trade
+Nizamabad,Telangana,6049757,77.3,16068,232038,5.1,Plastics & Packaging; Food Processing; Pharmaceuticals
+Pune,Maharashtra,3731028,76.4,25542,370947,10.6,Electronics Assembly; Handicrafts; Logistics
+Nagpur,Maharashtra,8623504,75.3,20519,365060,7.6,Handicrafts; Renewable Energy; Retail Trade
+Nashik,Maharashtra,5470190,74.0,7079,248475,2.6,Auto Components; Retail Trade; Textiles & Apparel
+Bengaluru Urban,Karnataka,1414794,82.7,24052,156206,7.9,Retail Trade; Food Processing; Renewable Energy
+Mysuru,Karnataka,705779,83.2,16581,340984,6.2,Electronics Assembly; Textiles & Apparel; Auto Components
+Hubballi,Karnataka,8514965,71.0,3341,300086,6.7,Food Processing; Agro Products; Logistics
+Chennai,Tamil Nadu,5597514,70.3,9332,152102,7.2,Renewable Energy; Furniture & Woodwork; Logistics
+Coimbatore,Tamil Nadu,4286401,88.6,13664,326199,10.2,Furniture & Woodwork; Renewable Energy; Retail Trade
+Madurai,Tamil Nadu,7694570,76.1,21549,121578,7.7,Handicrafts; Construction Materials; Retail Trade
+Ahmedabad,Gujarat,4040415,75.0,3860,172343,4.5,Agro Products; Retail Trade; Textiles & Apparel
+Surat,Gujarat,7353787,79.9,20658,336369,5.0,Plastics & Packaging; Auto Components; Pharmaceuticals
+Vadodara,Gujarat,5243227,86.6,16077,127318,8.3,Chemicals; Construction Materials; Logistics
+Lucknow,Uttar Pradesh,3818855,79.3,19044,207864,8.0,Chemicals; Renewable Energy; Agro Products
+Kanpur,Uttar Pradesh,1698058,69.6,27172,251277,7.6,Furniture & Woodwork; Plastics & Packaging; Food Processing
+Noida,Uttar Pradesh,8363447,86.2,24128,301030,10.5,Retail Trade; Plastics & Packaging; Food Processing
+Kolkata,West Bengal,1168752,91.6,25269,258989,7.6,Textiles & Apparel; Food Processing; Handicrafts
+Howrah,West Bengal,848050,94.5,23229,231301,7.4,Electronics Assembly; Plastics & Packaging; Chemicals
+Jaipur,Rajasthan,7919378,92.3,7147,396881,6.2,Retail Trade; Food Processing; Plastics & Packaging
+Udaipur,Rajasthan,6337817,78.8,11720,144840,9.8,Leather Goods; IT Services; Pharmaceuticals
+Ludhiana,Punjab,8812590,75.6,14322,378409,2.8,Agro Products; Electronics Assembly; Auto Components
+Amritsar,Punjab,5923634,71.1,26514,301904,9.9,Textiles & Apparel; Leather Goods; Renewable Energy
+Kochi,Kerala,8250676,79.0,7346,361811,5.6,Retail Trade; Leather Goods; Plastics & Packaging
+Thiruvananthapuram,Kerala,1365901,73.4,19196,158688,10.4,Logistics; Retail Trade; Pharmaceuticals

@@ -1,0 +1,16 @@
+scheme_id,scheme_name,ministry,category,launch_year,eligibility,benefit_type,benefit_amount_inr,application_mode,status
+SCH001,Credit Guarantee Fund Scheme,Ministry of MSME,Market Access,2007,SC/ST entrepreneurs,Subsidized Loan,408318,Online,Active
+SCH002,Prime Minister's Employment Generation Programme,Ministry of Finance,Subsidy,2023,Women entrepreneurs,Grant,9348063,Online,Active
+SCH003,Udyam Registration Support,Ministry of Finance,Training,2009,Export-oriented manufacturing units,Tax Rebate,97572,Offline,Active
+SCH004,Technology Upgradation Fund,Ministry of Finance,Tax Benefit,2013,Export-oriented manufacturing units,Subsidized Loan,1894258,Online,Active
+SCH005,Interest Subvention Scheme,Ministry of MSME,Training,2012,Rural artisans and small producers,Interest Subvention,314762,Online,Active
+SCH006,MSME Market Development Assistance,Ministry of MSME,Subsidy,2018,Rural artisans and small producers,Grant,1116326,Online/Offline,Closed
+SCH007,Skill Development & Training Grant,Ministry of Commerce & Industry,Tax Benefit,2023,MSMEs with Udyam registration,Capital Subsidy,8503010,Online,Active
+SCH008,Cluster Development Programme,Ministry of Agriculture & Farmers Welfare,Tax Benefit,2014,Registered startups under 10 years old,Grant,1070480,Online/Offline,Closed
+SCH009,Export Promotion Capital Goods Scheme,Ministry of Skill Development,Credit Support,2020,SC/ST entrepreneurs,Capital Subsidy,1282969,Online,Active
+SCH010,Startup India Seed Fund,Ministry of Rural Development,Subsidy,2007,Women entrepreneurs,Interest Subvention,9870789,Offline,Closed
+SCH011,Stand-Up India Scheme,Ministry of Rural Development,Tax Benefit,2014,Registered startups under 10 years old,Tax Rebate,7267547,Online,Active
+SCH012,Zero Defect Zero Effect Certification,Ministry of Agriculture & Farmers Welfare,Tax Benefit,2011,Registered startups under 10 years old,Capital Subsidy,3883486,Online/Offline,Active
+SCH013,Rural Self Employment Training,Ministry of Skill Development,Market Access,2018,SC/ST entrepreneurs,Grant,5293691,Online/Offline,Active
+SCH014,Agri Infrastructure Fund,Ministry of Agriculture & Farmers Welfare,Training,2016,Women entrepreneurs,Capital Subsidy,1176310,Online,Active
+SCH015,Solar Rooftop Subsidy,Ministry of MSME,Market Access,2008,SC/ST entrepreneurs,Interest Subvention,2232975,Online,Active

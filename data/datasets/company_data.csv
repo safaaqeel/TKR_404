@@ -1,0 +1,36 @@
+company_id,company_name,industry,city,state,founded_year,employees,annual_revenue_inr,company_type,gst_registered
+COMP0001,Maplewood Builders,Manufacturing,Udaipur,Rajasthan,2007,255,75322410,Public Limited,Yes
+COMP0002,Highstreet Electronics,Retail,Madurai,Tamil Nadu,2019,217,83109915,LLP,Yes
+COMP0003,Redstone Leather Co.,IT & Software,Pune,Maharashtra,2022,722,377764118,Proprietorship,Yes
+COMP0004,Redstone Textiles,Energy,Thiruvananthapuram,Kerala,2019,883,461900832,Proprietorship,Yes
+COMP0005,Amberlight Furniture Works,Financial Services,Nashik,Maharashtra,1998,564,252906624,Partnership,Yes
+COMP0006,Silver Oak Handicrafts Co.,Manufacturing,Kolkata,West Bengal,2000,1351,391960226,Public Limited,Yes
+COMP0007,Stonebridge Auto Parts,Financial Services,Ahmedabad,Gujarat,2007,864,274614624,Proprietorship,Yes
+COMP0008,Meridian Traders,IT & Software,Warangal,Telangana,2006,323,52496544,LLP,No
+COMP0009,Novagen Plastics,Healthcare,Lucknow,Uttar Pradesh,2022,1248,389073984,Public Limited,Yes
+COMP0010,Amberlight Logistics,Agriculture,Madurai,Tamil Nadu,2019,885,122252130,Proprietorship,Yes
+COMP0011,Meridian Traders,Manufacturing,Mysuru,Karnataka,2004,814,485252262,Proprietorship,Yes
+COMP0012,Crestwood Chemicals Ltd,Financial Services,Kochi,Kerala,2001,286,137463040,Private Limited,No
+COMP0013,Golden Harvest Pharma,Agriculture,Amritsar,Punjab,2020,886,152493004,Partnership,Yes
+COMP0014,Windmere Traders,Construction,Nizamabad,Telangana,1998,818,435022216,LLP,Yes
+COMP0015,Skyline Pharma,Construction,Coimbatore,Tamil Nadu,2007,1184,361200512,Private Limited,No
+COMP0016,Rivera Energy Solutions,Financial Services,Hyderabad,Telangana,2000,1983,496289376,LLP,Yes
+COMP0017,Trueform Retailers,IT & Software,Mysuru,Karnataka,2010,897,348697986,Proprietorship,Yes
+COMP0018,Rivera Agro Industries,Agriculture,Mysuru,Karnataka,2018,687,335587134,Private Limited,Yes
+COMP0019,Windmere Handicrafts Co.,Healthcare,Kochi,Kerala,2001,720,190135440,Partnership,Yes
+COMP0020,Golden Harvest Agro Industries,Retail,Bengaluru Urban,Karnataka,2022,360,142498800,LLP,No
+COMP0021,Skyline Energy Solutions,Energy,Kochi,Kerala,2018,1159,554458646,Public Limited,Yes
+COMP0022,Brightwell Agro Industries,Hospitality,Jaipur,Rajasthan,2012,652,103762540,Proprietorship,Yes
+COMP0023,Highstreet Agro Industries,Education,Kolkata,West Bengal,2012,120,31742280,LLP,Yes
+COMP0024,Amberlight Agro Industries,IT & Software,Warangal,Telangana,2017,760,392196480,Public Limited,No
+COMP0025,Windmere Traders,Hospitality,Vadodara,Gujarat,2023,1193,442150853,Public Limited,Yes
+COMP0026,Highstreet Handicrafts Co.,Manufacturing,Coimbatore,Tamil Nadu,2012,1244,409731304,Private Limited,Yes
+COMP0027,Copperline Auto Parts,Manufacturing,Ludhiana,Punjab,2005,177,60981456,LLP,No
+COMP0028,Rivera Leather Co.,Financial Services,Kanpur,Uttar Pradesh,2007,1075,429691475,LLP,No
+COMP0029,Meridian Traders,Financial Services,Kochi,Kerala,2000,697,303848089,Proprietorship,Yes
+COMP0030,Amberlight Plastics,Energy,Noida,Uttar Pradesh,2002,1394,394041980,Proprietorship,Yes
+COMP0031,Maplewood Chemicals Ltd,Construction,Kolkata,West Bengal,2002,1364,210259236,Public Limited,Yes
+COMP0032,Copperline Furniture Works,Retail,Chennai,Tamil Nadu,2019,1149,318833712,Public Limited,Yes
+COMP0033,Highstreet Leather Co.,Manufacturing,Jaipur,Rajasthan,2009,1378,416136708,Proprietorship,Yes
+COMP0034,Fernwood Electronics,Healthcare,Bengaluru Urban,Karnataka,2002,704,406103104,Partnership,Yes
+COMP0035,Bluebird Retailers,Agriculture,Chennai,Tamil Nadu,2021,1734,855210534,Public Limited,Yes
