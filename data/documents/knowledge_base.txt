@@ -1,0 +1,60 @@
+VIGILAI KNOWLEDGE BASE
+Master Index and Overview of the Business Intelligence Document Repository
+
+PURPOSE OF THIS DOCUMENT
+
+This knowledge_base.txt file serves as the master index for the VigilAI document repository. It summarizes the scope, structure, and coverage of all documents across the business, finance, government, and faq folders, and is designed to help a retrieval-augmented generation (RAG) system route queries to the most relevant document category and to give any reader a quick orientation to the full knowledge base.
+
+REPOSITORY STRUCTURE
+
+data/documents/
+  business/   - Operational, strategic, and growth-related guidance for MSMEs
+  finance/    - Financial management, risk, and performance guidance
+  government/ - Government schemes, tax, and compliance reference material
+  faq/        - Quick-reference question-and-answer files across all domains
+
+DOMAIN 1: BUSINESS OPERATIONS
+
+Covers day-to-day operational management, inventory, sales, marketing, procurement, supplier relationships, pricing, and growth strategy. Key documents include Business_Operations_Guide, Inventory_Management_Guide, Supplier_Management_Guide, Customer_Retention_Strategies, Sales_Performance_Guide, Marketing_Strategies, Pricing_Strategies, Business_Growth_Playbook, MSME_Business_Best_Practices, and Digital_Transformation_for_MSMEs. This domain answers questions about how to run, market, and grow a business efficiently.
+
+DOMAIN 2: FINANCE
+
+Covers financial health diagnostics, cash and working capital management, budgeting, cost control, profitability, risk, and debt management. Key documents include Financial_Distress_Indicators, Cash_Flow_Management, Working_Capital_Guide, Financial_Ratio_Reference, Cost_Optimization_Strategies, Budget_Planning, Break_Even_Analysis, Profitability_Improvement, Expense_Management, Financial_Risk_Management, and Loan_Management. Each document includes definitions, causes, symptoms, KPIs, examples, and recommendations, structured for consistent semantic retrieval across financial topics. This domain answers questions about the financial health, viability, and risk profile of a business.
+
+DOMAIN 3: GOVERNMENT
+
+Covers government schemes, tax regulations, and compliance obligations relevant to Indian MSMEs. Key documents include MSME_Schemes_Overview, Startup_India, Mudra_Loans, CGTMSE, SIDBI, Digital_India, Income_Tax_Basics, GST_Basics, Compliance_Requirements, Government_Subsidies, Export_Promotion, State_Support_Schemes, and Government_Procurement_Policies. Each document covers eligibility, benefits, documents required, application process, and limitations. This domain answers questions about accessing government credit, subsidies, tax obligations, and regulatory compliance.
+
+DOMAIN 4: FAQ
+
+Provides quick-answer reference across all domains for common MSME owner questions, structured as condensed question-answer pairs for fast retrieval when a user's query maps closely to a known common question. Files include Business_FAQ, Finance_FAQ, Government_FAQ, Risk_FAQ, Inventory_FAQ, Customer_FAQ, Supplier_FAQ, Pricing_FAQ, and Growth_FAQ.
+
+CROSS-DOMAIN TOPIC MAP
+
+| Topic | Primary Document(s) |
+|---|---|
+| Cash flow and liquidity | Cash_Flow_Management, Working_Capital_Guide, Financial_Distress_Indicators |
+| Business loans and credit | Loan_Management, Mudra_Loans, CGTMSE, SIDBI |
+| Pricing decisions | Pricing_Strategies (business), Break_Even_Analysis, Profitability_Improvement, Pricing_FAQ |
+| Tax and compliance | Income_Tax_Basics, GST_Basics, Compliance_Requirements |
+| Growth and scaling | Business_Growth_Playbook, Growth_FAQ, Digital_Transformation_for_MSMEs |
+| Risk management | Financial_Risk_Management, Risk_FAQ |
+| Inventory | Inventory_Management_Guide, Inventory_FAQ, Working_Capital_Guide |
+| Customer relationships | Customer_Retention_Strategies, Customer_FAQ |
+| Suppliers and procurement | Supplier_Management_Guide, Supplier_FAQ |
+| Government funding access | MSME_Schemes_Overview, Government_Subsidies, State_Support_Schemes |
+
+HOW TO USE THIS REPOSITORY FOR RAG
+
+1. Each document is self-contained and chunkable by heading section (Overview, Definition, Causes, KPIs, Examples, Recommendations), enabling granular semantic retrieval.
+2. FAQ files provide short, high-precision answers ideal for direct question-matching; full guide documents provide deeper context for follow-up or exploratory queries.
+3. When a user query spans multiple domains (e.g., "how do I finance my business growth"), the retrieval system should draw from both the finance and government domains, and where relevant the business growth documents.
+4. All documents use consistent terminology (e.g., "working capital," "DSCR," "Udyam Registration") to support accurate cross-document semantic matching.
+
+MAINTENANCE NOTES
+
+Government scheme details (rates, thresholds, eligibility criteria) are subject to periodic revision by the relevant authorities. This repository should be reviewed and refreshed against current official sources (Ministry of MSME, DGFT, CBIC, Income Tax Department) on a periodic basis to maintain accuracy for scheme-specific and tax-specific queries.
+
+RELATED TOPICS
+
+See individual folder documents for full detail: business/, finance/, government/, faq/.
