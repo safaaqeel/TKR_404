@@ -8,6 +8,8 @@ from app.config import get_settings
 
 logger = logging.getLogger("smart_automation_ai.gemini")
 
+GEMINI_MODEL_NAME = "gemini-1.5-pro"
+
 _client = None
 
 
@@ -18,9 +20,11 @@ def build_gemini_client():
 
     import google.generativeai as genai
     settings = get_settings()
-    genai.configure(api_key=settings.GEMINI_API_KEY)
-    _client = genai.GenerativeModel(settings.GEMINI_MODEL_NAME)
-    logger.info(f"Gemini client initialized: {settings.GEMINI_MODEL_NAME}")
+    if not settings.gemini_api_key:
+        raise RuntimeError("GEMINI_API_KEY is not set; cannot build Gemini client.")
+    genai.configure(api_key=settings.gemini_api_key)
+    _client = genai.GenerativeModel(GEMINI_MODEL_NAME)
+    logger.info(f"Gemini client initialized: {GEMINI_MODEL_NAME}")
     return _client
 
 

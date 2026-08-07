@@ -97,10 +97,10 @@ def create_app() -> FastAPI:
     app.include_router(knowledge.router)
     app.include_router(settings_router.router)
     app.include_router(simulator.router)
+    app.include_router(checkin.router)
     app.include_router(schemes.router)
     app.include_router(competitor.router)
     app.include_router(agents.router)
-    app.include_router(checkin.router)
 
     frontend_dir = Path(__file__).resolve().parent / "frontend"
 
