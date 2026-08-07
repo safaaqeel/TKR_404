@@ -463,18 +463,31 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* ==========================================================================
    MODAL / TOAST
+   FIX: display was previously hardcoded (display: grid / display: flex),
+   which beat the [hidden] user-agent rule on specificity-tie + source
+   order, so the modal/toast never actually disappeared when JS set
+   `.hidden = true`. Now `display: none` is the base state, and the
+   visible display mode only applies via the :not([hidden]) rule.
    ========================================================================== */
-.modal-backdrop { position: fixed; inset: 0; background: rgba(8,15,26,.55); backdrop-filter: blur(2px); display: grid; place-items: center; z-index: 200; padding: 20px; }
+.modal-backdrop {
+  display: none;
+  position: fixed; inset: 0; background: rgba(8,15,26,.55); backdrop-filter: blur(2px);
+  z-index: 200; padding: 20px;
+}
+.modal-backdrop:not([hidden]) { display: grid; place-items: center; }
+
 .modal { width: min(560px, 100%); background: var(--bg-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lift); overflow: hidden; }
 .modal__header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--border-subtle); }
 .modal__body { padding: 22px; font-size: .87rem; color: var(--text-secondary); line-height: 1.6; max-height: 60vh; overflow-y: auto; }
 
 .toast {
+  display: none;
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
   background: var(--navy-950); color: #fff; padding: 12px 20px; border-radius: 10px;
   font-size: .85rem; box-shadow: var(--shadow-lift); z-index: 300;
-  display: flex; align-items: center; gap: 8px;
+  gap: 8px;
 }
+.toast:not([hidden]) { display: flex; align-items: center; }
 
 .sidebar-overlay { position: fixed; inset: 0; background: rgba(8,15,26,.5); z-index: 39; }
 
