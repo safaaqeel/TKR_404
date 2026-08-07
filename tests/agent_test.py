@@ -24,6 +24,8 @@ import unittest
 from unittest import mock
 from unittest.mock import MagicMock
 
+from app.agents import analysis_agent, automation_agent, manager_agent, memory_agent, planner_agent, research_agent
+
 # --------------------------------------------------------------------------------
 # Stub out cross-package dependencies BEFORE importing anything under agents/.
 # These modules are owned by other developers per §17 and may not exist yet in a
@@ -88,14 +90,8 @@ _install_stub_modules()
 # Ensure the repo root (parent of tests/) is importable as top-level packages.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from agents import (  # noqa: E402  (import after stubbing, intentional)
-    analysis_agent,
-    automation_agent,
+from app.agents import (  # noqa: E402  (import after stubbing, intentional)
     decision_agent,
-    manager_agent,
-    memory_agent,
-    planner_agent,
-    research_agent,
 )
 
 

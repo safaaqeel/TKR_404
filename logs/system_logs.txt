@@ -46,3 +46,70 @@
 2026-08-07 08:45:43,058	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
 2026-08-07 08:45:43,060	INFO	smart_automation_ai	Smart Automation AI backend started.
 2026-08-07 08:55:56,336	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:39:31,778	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:39:34,718	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:39:34,718	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:40:44,362	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:40:46,056	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:40:46,056	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:41:14,055	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:41:15,256	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:41:15,257	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:41:29,492	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:41:30,650	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:41:30,651	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:42:06,712	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:42:07,886	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:42:07,887	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:42:16,350	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:42:17,527	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:42:17,527	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:42:40,217	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:42:41,317	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:42:41,318	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:43:58,540	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:44:00,128	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:44:00,128	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:44:39,528	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:44:40,674	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:44:40,675	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:45:00,616	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:45:01,772	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:45:01,773	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:47:11,268	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:47:12,963	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:47:12,963	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:49:03,698	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:49:05,252	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:49:05,252	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:51:09,827	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:51:10,824	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:51:10,825	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:51:11,958	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:51:11,958	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:56:11,178	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:56:12,286	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:56:12,287	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:56:13,426	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:56:13,426	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 09:56:26,351	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 09:56:27,433	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 09:56:27,433	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 10:01:26,607	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 10:01:27,726	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 10:01:27,726	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 10:01:28,967	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 10:01:28,968	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 10:04:33,692	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 10:04:34,227	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 10:04:34,227	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 10:04:34,739	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 10:04:34,739	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 10:07:45,446	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 10:07:46,656	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 10:07:46,656	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 10:07:47,688	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 10:07:47,688	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 10:08:19,850	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
+2026-08-07 10:08:20,989	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 10:08:20,990	INFO	smart_automation_ai	Smart Automation AI backend started.
