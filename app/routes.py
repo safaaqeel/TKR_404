@@ -272,7 +272,7 @@ async def upload_document(file: UploadFile = File(...)):
             out_file.write(chunk)
 
     try:
-        from rag.document_loader import ingest as rag_ingest
+        from app.rag.document_loader import ingest as rag_ingest
     except ImportError as exc:
         dest_path.unlink(missing_ok=True)
         raise ApiError(503, "rag_unavailable", "Document ingestion is not available.", str(exc))
@@ -316,7 +316,7 @@ async def delete_knowledge(doc_id: str):
     failures: list[str] = []
 
     try:
-        from rag.vector_store import delete_document as vector_delete_document
+        from app.rag.vector_store import delete_document as vector_delete_document
 
         vector_delete_document(doc_id)
     except ImportError:
@@ -355,7 +355,7 @@ async def delete_knowledge(doc_id: str):
 async def list_memory():
     """List learned preferences via agents/memory_agent.py's read helper."""
     try:
-        from agents.memory_agent import list_memories
+        from app.agents.memory_agent import list_memories
     except ImportError as exc:
         raise ApiError(503, "memory_agent_unavailable", "Memory agent is not available.", str(exc))
     return {"memories": list_memories()}
@@ -365,7 +365,7 @@ async def list_memory():
 async def forget_memory(memory_id: str):
     """Forget one memory entry."""
     try:
-        from agents.memory_agent import forget_memory as agent_forget_memory
+        from app.agents.memory_agent import forget_memory as agent_forget_memory
     except ImportError as exc:
         raise ApiError(503, "memory_agent_unavailable", "Memory agent is not available.", str(exc))
 
@@ -379,7 +379,7 @@ async def forget_memory(memory_id: str):
 async def forget_all_memory():
     """Forget everything the Memory Agent has learned."""
     try:
-        from agents.memory_agent import forget_all_memories
+        from app.agents.memory_agent import forget_all_memories
     except ImportError as exc:
         raise ApiError(503, "memory_agent_unavailable", "Memory agent is not available.", str(exc))
 

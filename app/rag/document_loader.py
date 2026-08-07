@@ -134,7 +134,9 @@ _LOADERS = {
 }
 
 
-def load_and_chunk(file_path: str | Path, source_type: str = "document") -> list[DocumentChunk]:
+def load_and_chunk(
+    file_path: str | Path, source_type: str = "document", doc_id: str | None = None
+) -> list[DocumentChunk]:
     """
     Load a single source file and split it into overlapping chunks.
 
@@ -142,6 +144,8 @@ def load_and_chunk(file_path: str | Path, source_type: str = "document") -> list
         file_path: Path to a .pdf, .txt, or .csv file (data/uploads/ or data/documents/**).
         source_type: Label stored in chunk metadata, e.g. "government", "faq", "upload".
             Callers ingesting data/documents/<category>/ typically pass the folder name.
+        doc_id: Optional caller-supplied id (e.g. the upload's generated UUID, matching
+            the source file's name on disk). If omitted, one is generated here.
 
     Returns:
         List of DocumentChunk. All chunks from one file share the same doc_id.
@@ -172,7 +176,7 @@ def load_and_chunk(file_path: str | Path, source_type: str = "document") -> list
         length_function=len,
     )
 
-    doc_id = _new_doc_id()
+    doc_id = doc_id or _new_doc_id()
     ingested_at = _now_iso()
     chunks: list[DocumentChunk] = []
     chunk_index = 0
@@ -234,3 +238,41 @@ def load_directory(directory: str | Path, source_type: str | None = None) -> lis
             continue
 
     return all_chunks
+
+
+def ingest(file_path: str | Path, doc_id: str | None = None, source_type: str = "document") -> dict:
+    """
+    End-to-end ingestion: load + chunk a single file, embed every chunk, and
+    persist the embeddings into ChromaDB. This is the glue function
+    app/routes.py's POST /api/knowledge/upload calls — it ties together
+    load_and_chunk() (this module), rag/embeddings.py, and rag/vector_store.py
+    so the caller only has to deal with one function and a plain path.
+
+    Args:
+        file_path: Path to the already-saved upload (data/uploads/<doc_id>.<ext>).
+        doc_id: The id the caller already generated for this upload (used as the
+            saved filename's stem). Reused as every chunk's doc_id so deletion
+            and citation stay consistent with app/routes.py's knowledge_base_index.
+        source_type: Label stored in chunk metadata (routes.py passes the file
+            extension without the dot, e.g. "pdf", "txt", "csv").
+
+    Returns:
+        {"doc_id": str, "chunk_count": int} — chunk_count may be 0 if the file
+        contained no extractable text (not an error, just nothing to index).
+
+    Raises:
+        DocumentLoadError: file missing, unsupported extension, or unreadable content.
+        EmbeddingError / VectorStoreError: propagated on embedding or Chroma failure.
+    """
+    from rag.embeddings import get_embedding_model
+    from rag.vector_store import get_vector_store
+
+    chunks = load_and_chunk(file_path, source_type=source_type, doc_id=doc_id)
+    if not chunks:
+        return {"doc_id": doc_id or "", "chunk_count": 0}
+
+    texts = [chunk.text for chunk in chunks]
+    embeddings = get_embedding_model().embed_texts(texts)
+    added = get_vector_store().add_chunks(chunks, embeddings)
+
+    return {"doc_id": chunks[0].doc_id, "chunk_count": added}

@@ -31,6 +31,28 @@ _MODELS_DIR = Path(__file__).resolve().parent
 _RISK_MODEL_PATH = _MODELS_DIR / "xgboost_model.pkl"
 _RISK_SCALER_PATH = _MODELS_DIR / "scaler.pkl"
 
+class _GeminiClientWrapper:
+    """Adapts genai.GenerativeModel's `.generate_content()` to the simple
+    `.generate(prompt) -> str` interface app/agents_pipeline/*.py (planner_agent,
+    decision_agent) call. Keeping this here rather than changing every call
+    site means both existing and future callers get one consistent interface
+    for the LLM client returned by get_llm_client()."""
+
+    def __init__(self, raw_client) -> None:
+        self._raw = raw_client
+
+    def generate(self, prompt: str, temperature: float = 0.4) -> str:
+        response = self._raw.generate_content(
+            prompt, generation_config={"temperature": temperature}
+        )
+        return response.text
+
+    def __getattr__(self, name):
+        # Anything not explicitly wrapped above (e.g. generate_content itself,
+        # for callers that want the raw genai interface) falls through.
+        return getattr(self._raw, name)
+
+
 _llm_client = None
 _embedding_model = None
 _risk_model = None
@@ -57,7 +79,7 @@ def initialize() -> None:
 
     logger.info("Initializing Gemini client with model=%s", GEMINI_MODEL_NAME)
     genai.configure(api_key=settings.gemini_api_key)
-    _llm_client = genai.GenerativeModel(GEMINI_MODEL_NAME)
+    _llm_client = _GeminiClientWrapper(genai.GenerativeModel(GEMINI_MODEL_NAME))
 
     logger.info("Loading embedding model=%s", EMBEDDING_MODEL_NAME)
     _embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)

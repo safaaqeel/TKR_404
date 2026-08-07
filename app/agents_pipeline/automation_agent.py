@@ -91,6 +91,8 @@ def run(state: AgentState) -> AgentState:
 
     state["current_step_index"] = idx + 1
     state["status"] = "running"
-    state["next_agent"] = "manager_agent"
+    # Route through the quality gate before handing back to Manager, per
+    # §5 of the governing spec (Decision reviews every completed step).
+    state["next_agent"] = "decision_agent"
     _log(state, "exit")
     return state

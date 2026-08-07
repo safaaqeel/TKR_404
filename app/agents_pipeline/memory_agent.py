@@ -82,6 +82,40 @@ def forget(memory_id: Optional[str] = None) -> None:
     _save(data)
 
 
+# ---------------------------------------------------------------------------
+# Thin HTTP-facing wrappers — these are the exact names app/routes.py imports
+# (`from agents_pipeline.memory_agent import list_memories`, etc.) for
+# GET/DELETE /api/memory[/{id}]. Kept separate from read_memory_context()/
+# forget() above since those two have a different internal shape used by the
+# workflow graph (facts/preferences split) vs. what the Memory Center UI
+# wants (a flat, deletable list with ids).
+# ---------------------------------------------------------------------------
+
+
+def list_memories() -> List[Dict[str, Any]]:
+    """Flat list of every durable memory entry, for GET /api/memory."""
+    return _load()["entries"]
+
+
+def forget_memory(memory_id: str) -> bool:
+    """Forget one entry by id. Returns True if it existed and was removed."""
+    data = _load()
+    before = len(data["entries"])
+    data["entries"] = [e for e in data["entries"] if e.get("memory_id") != memory_id]
+    removed = len(data["entries"]) != before
+    if removed:
+        _save(data)
+    return removed
+
+
+def forget_all_memories() -> int:
+    """Forget every entry. Returns the number of entries removed."""
+    data = _load()
+    count = len(data["entries"])
+    _save({"entries": [], "pending": []})
+    return count
+
+
 def _promote(data: Dict[str, List[Dict[str, Any]]], candidate: Dict[str, Any], now: str) -> None:
     data["entries"].append(
         {

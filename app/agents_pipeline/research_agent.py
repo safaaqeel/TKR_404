@@ -1,33 +1,40 @@
 """
-Purpose:    Retrieves relevant knowledge-base chunks for the current plan
-            step via the RAG pipeline.
-Inputs:     AgentState with "plan" and "current_step_index" pointing at a
-            step whose "agent" == "research_agent".
-Outputs:    Mutated AgentState with state["result"][step_key] populated
-            with retrieved chunks (or an empty list + confidence="low"),
-            "current_step_index" advanced, "next_agent" = "manager_agent".
-Depends on: rag/retriever.py (Retriever — the ONLY interface into ChromaDB),
-            workflows/workflow_manager.py (AgentState schema).
-Called by:  workflows/workflow_manager.py (via manager_agent's next_agent routing)
+Purpose:    The only module in the codebase with write access to
+            database/conversation_memory.json. Exposes a read helper used
+            by Manager Agent at the start of every run (and by GET
+            /api/memory), and owns the write path used at end-of-run.
+Inputs:     run(state) expects a completed/failed AgentState whose
+            state["result"]["memory_candidates"] may contain candidate
+            facts/preferences: {"type": "fact"|"preference", "content": str,
+            "user_confirmed": bool}.
+Outputs:    Mutated AgentState with "next_agent" = None (terminal node);
+            side effect of updating database/conversation_memory.json. A
+            candidate is only persisted as a durable entry once it has
+            either been explicitly confirmed by the user, or observed on
+            two separate runs (tracked via an internal "pending" list).
+Depends on: database/conversation_memory.json, workflows/workflow_manager.py
+            (AgentState schema).
+Called by:  workflows/workflow_manager.py (via manager_agent's next_agent
+            routing); read_memory_context() is also called directly by
+            agents/manager_agent.py and by GET /api/memory in app/routes.py;
+            forget() is called by DELETE /api/memory[/{id}] in app/routes.py.
 """
 
 from __future__ import annotations
 
+import json
+import uuid
 from datetime import datetime, timezone
-from typing import Any, Dict
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 try:
     from workflows.workflow_manager import AgentState  # type: ignore
 except ImportError:
     AgentState = Dict[str, Any]  # type: ignore
 
-from rag.retriever import Retriever
-
-AGENT_NAME = "research_agent"
-
-# Retriever wraps a persistent Chroma client — construct once per process,
-# not per request.
-_retriever = Retriever()
+AGENT_NAME = "memory_agent"
+MEMORY_PATH = Path("database/conversation_memory.json")
 
 
 def _log(state: AgentState, message: str) -> None:
@@ -40,31 +47,132 @@ def _log(state: AgentState, message: str) -> None:
     )
 
 
+def _load() -> Dict[str, List[Dict[str, Any]]]:
+    if not MEMORY_PATH.exists():
+        return {"entries": [], "pending": []}
+    with MEMORY_PATH.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    data.setdefault("entries", [])
+    data.setdefault("pending", [])
+    return data
+
+
+def _save(data: Dict[str, List[Dict[str, Any]]]) -> None:
+    MEMORY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with MEMORY_PATH.open("w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
+def read_memory_context(task_id: str) -> Dict[str, Any]:
+    """Read-only helper used by Manager Agent (and GET /api/memory)."""
+    entries = _load()["entries"]
+    return {
+        "facts": [e for e in entries if e.get("type") == "fact"],
+        "preferences": [e for e in entries if e.get("type") == "preference"],
+    }
+
+
+def forget(memory_id: Optional[str] = None) -> None:
+    """Used by DELETE /api/memory/{id} (single) and DELETE /api/memory (all)."""
+    if memory_id is None:
+        _save({"entries": [], "pending": []})
+        return
+    data = _load()
+    data["entries"] = [e for e in data["entries"] if e.get("memory_id") != memory_id]
+    _save(data)
+
+
+# ---------------------------------------------------------------------------
+# Thin HTTP-facing wrappers — these are the exact names app/routes.py imports
+# (`from agents_pipeline.memory_agent import list_memories`, etc.) for
+# GET/DELETE /api/memory[/{id}]. Kept separate from read_memory_context()/
+# forget() above since those two have a different internal shape used by the
+# workflow graph (facts/preferences split) vs. what the Memory Center UI
+# wants (a flat, deletable list with ids).
+# ---------------------------------------------------------------------------
+
+
+def list_memories() -> List[Dict[str, Any]]:
+    """Flat list of every durable memory entry, for GET /api/memory."""
+    return _load()["entries"]
+
+
+def forget_memory(memory_id: str) -> bool:
+    """Forget one entry by id. Returns True if it existed and was removed."""
+    data = _load()
+    before = len(data["entries"])
+    data["entries"] = [e for e in data["entries"] if e.get("memory_id") != memory_id]
+    removed = len(data["entries"]) != before
+    if removed:
+        _save(data)
+    return removed
+
+
+def forget_all_memories() -> int:
+    """Forget every entry. Returns the number of entries removed."""
+    data = _load()
+    count = len(data["entries"])
+    _save({"entries": [], "pending": []})
+    return count
+
+
+def _promote(data: Dict[str, List[Dict[str, Any]]], candidate: Dict[str, Any], now: str) -> None:
+    data["entries"].append(
+        {
+            "memory_id": str(uuid.uuid4()),
+            "type": candidate["type"],
+            "content": candidate["content"],
+            "confidence": 1.0,
+            "first_seen": now,
+            "last_confirmed": now,
+        }
+    )
+
+
+def _upsert_candidate(data: Dict[str, List[Dict[str, Any]]], candidate: Dict[str, Any], now: str) -> None:
+    confirmed = bool(candidate.get("user_confirmed", False))
+
+    if confirmed:
+        existing = next(
+            (e for e in data["entries"] if e["type"] == candidate["type"] and e["content"] == candidate["content"]),
+            None,
+        )
+        if existing:
+            existing["confidence"] = 1.0
+            existing["last_confirmed"] = now
+        else:
+            _promote(data, candidate, now)
+        data["pending"] = [
+            p for p in data["pending"] if not (p["type"] == candidate["type"] and p["content"] == candidate["content"])
+        ]
+        return
+
+    # Not explicitly confirmed: only persist once seen on a second run.
+    pending_match = next(
+        (p for p in data["pending"] if p["type"] == candidate["type"] and p["content"] == candidate["content"]),
+        None,
+    )
+    if pending_match:
+        data["pending"].remove(pending_match)
+        _promote(data, candidate, now)
+    else:
+        data["pending"].append({"type": candidate["type"], "content": candidate["content"], "first_seen": now})
+
+
 def run(state: AgentState) -> AgentState:
     _log(state, "enter")
 
-    idx = state.get("current_step_index", 0)
-    plan = state.get("plan") or []
-    step = plan[idx] if idx < len(plan) else {}
-    query = step.get("action") or state.get("user_query", "")
-    doc_ids = step.get("doc_ids")
-
-    # Retriever.retrieve() never raises — on internal failure it returns []
-    # and logs its own warning, so this call is safe unguarded.
-    chunks = _retriever.retrieve(query, k=5, doc_ids=doc_ids)
-
-    step_key = f"step_{step.get('step', idx)}"
-    result_entry: Dict[str, Any] = {"chunks": chunks}
-
-    if not chunks:
-        result_entry["confidence"] = "low"
-        _log(state, f"no chunks found for query {query!r}, confidence=low")
+    candidates: List[Dict[str, Any]] = state.get("result", {}).get("memory_candidates", [])
+    if candidates:
+        now = datetime.now(timezone.utc).isoformat()
+        data = _load()
+        for candidate in candidates:
+            _upsert_candidate(data, candidate, now)
+        _save(data)
+        _log(state, f"processed {len(candidates)} memory candidate(s)")
     else:
-        result_entry["confidence"] = "normal"
-        _log(state, f"retrieved {len(chunks)} chunk(s) for step {step.get('step', idx)}")
+        _log(state, "no memory candidates this run")
 
-    state.setdefault("result", {})[step_key] = result_entry
-    state["current_step_index"] = idx + 1
-    state["next_agent"] = "manager_agent"
+    state["next_agent"] = None
     _log(state, "exit")
     return state

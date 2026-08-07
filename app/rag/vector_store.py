@@ -183,6 +183,32 @@ class VectorStore:
             logger.warning("Failed to count '%s': %s", COLLECTION_NAME, exc)
             return 0
 
+    def get_by_doc_id(self, doc_id: str) -> list[SearchResult]:
+        """
+        Fetch every stored chunk for one document, unranked (no similarity
+        search — this is a direct lookup by metadata, for document preview /
+        detail views rather than retrieval).
+
+        Returns:
+            SearchResult list with distance=0.0 for every entry (no query was
+            run, so there's no meaningful distance) ordered by chunk_index.
+            Empty list if the doc_id has no chunks or the lookup fails.
+        """
+        try:
+            raw = self._collection.get(where={"doc_id": doc_id})
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Failed to fetch chunks for doc_id '%s': %s", doc_id, exc)
+            return []
+
+        documents = raw.get("documents") or []
+        metadatas = raw.get("metadatas") or []
+        results = [
+            SearchResult(text=doc, metadata=meta, distance=0.0)
+            for doc, meta in zip(documents, metadatas)
+        ]
+        results.sort(key=lambda r: r.metadata.get("chunk_index", 0))
+        return results
+
 
 _store_lock = threading.Lock()
 _store_instance: VectorStore | None = None
@@ -200,3 +226,18 @@ def get_vector_store(persist_dir: str = DEFAULT_PERSIST_DIR) -> VectorStore:
             if _store_instance is None:
                 _store_instance = VectorStore(persist_dir=persist_dir)
     return _store_instance
+
+
+def delete_document(doc_id: str) -> bool:
+    """
+    Module-level convenience wrapper around get_vector_store().delete_by_doc_id().
+    This is the exact name app/routes.py's DELETE /api/knowledge/{doc_id} imports
+    (`from rag.vector_store import delete_document`) — step 1 of the three-step
+    document deletion in §11.7.
+    """
+    return get_vector_store().delete_by_doc_id(doc_id)
+
+
+def get_document_chunks(doc_id: str) -> list[SearchResult]:
+    """Module-level convenience wrapper around get_vector_store().get_by_doc_id()."""
+    return get_vector_store().get_by_doc_id(doc_id)
