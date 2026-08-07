@@ -41,4 +41,8 @@
 2026-08-01 11:05:19 | CRITICAL | app.config             | Startup aborted on secondary worker — GEMINI_API_KEY missing in environment
 2026-08-01 11:05:19 | CRITICAL | app.main               | Application failed fast per configuration policy — shutting down
 2026-08-01 11:07:02 | INFO     | app.main               | VigilAI application restarted after configuration fix
-2026-08-01 11:07:02 | INFO     | app.config             | Configuration validated successfully — all required settings present
+2026-08-01 11:07:02 | INFO     | app.config             | Configuration validated successfully — all required settings present2026-08-07 07:34:38,655	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 07:34:38,656	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 08:45:43,058	WARNING	smart_automation_ai	models/model_loader.py not available yet — skipping model init. Endpoints that require Gemini/embeddings will fail until it exists.
+2026-08-07 08:45:43,060	INFO	smart_automation_ai	Smart Automation AI backend started.
+2026-08-07 08:55:56,336	INFO	smart_automation_ai	Smart Automation AI backend shutting down.
