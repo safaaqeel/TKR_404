@@ -9,7 +9,8 @@ Inputs:     AgentState with "plan"/"current_step_index" pointing at a step
 Outputs:    Mutated AgentState with state["result"][step_key] containing
             the computed value(s) and the exact pandas operation performed
             (for auditability), or a structured error on failure.
-            "next_agent" = "manager_agent".
+            "next_agent" = "decision_agent" (quality gate runs before
+            control returns to Manager).
 Depends on: data/datasets/*.csv, workflows/workflow_manager.py (AgentState schema).
 Called by:  workflows/workflow_manager.py (via manager_agent's next_agent routing)
 """
@@ -101,8 +102,6 @@ def run(state: AgentState) -> AgentState:
         _log(state, f"analysis error: {exc}")
 
     state["current_step_index"] = idx + 1
-    # Route through the quality gate before handing back to Manager, per
-    # §5 of the governing spec (Decision reviews every completed step).
     state["next_agent"] = "decision_agent"
     _log(state, "exit")
     return state

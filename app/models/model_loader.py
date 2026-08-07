@@ -5,7 +5,7 @@ Purpose: Initialize the Gemini LLM client, the Sentence-Transformers
          module-level singletons for the rest of the app to import.
 Inputs: GEMINI_API_KEY (via app/config.py Settings)
         app/models/xgboost_model.pkl, app/models/scaler.pkl (trained artifacts)
-Outputs: get_llm_client() -> genai.GenerativeModel
+Outputs: get_llm_client() -> GeminiClient (adapter exposing .generate(prompt) -> str)
          get_embedding_model() -> SentenceTransformer
          get_risk_model() -> xgboost.XGBClassifier | None
          get_risk_scaler() -> sklearn scaler | None
@@ -31,26 +31,31 @@ _MODELS_DIR = Path(__file__).resolve().parent
 _RISK_MODEL_PATH = _MODELS_DIR / "xgboost_model.pkl"
 _RISK_SCALER_PATH = _MODELS_DIR / "scaler.pkl"
 
-class _GeminiClientWrapper:
-    """Adapts genai.GenerativeModel's `.generate_content()` to the simple
-    `.generate(prompt) -> str` interface app/agents_pipeline/*.py (planner_agent,
-    decision_agent) call. Keeping this here rather than changing every call
-    site means both existing and future callers get one consistent interface
-    for the LLM client returned by get_llm_client()."""
+class GeminiClient:
+    """Thin adapter over genai.GenerativeModel giving callers a single,
+    simple `.generate(prompt) -> str` method.
 
-    def __init__(self, raw_client) -> None:
+    Every agent module in agents_pipeline/ (planner, decision, research,
+    analysis, automation) calls client.generate(prompt) expecting a plain
+    string back. The raw google-generativeai client only exposes
+    .generate_content(prompt) -> GenerateContentResponse, so without this
+    wrapper every one of those call sites raises AttributeError the first
+    time an LLM call actually happens.
+    """
+
+    def __init__(self, raw_client: "genai.GenerativeModel") -> None:
         self._raw = raw_client
 
-    def generate(self, prompt: str, temperature: float = 0.4) -> str:
-        response = self._raw.generate_content(
-            prompt, generation_config={"temperature": temperature}
-        )
+    def generate(self, prompt: str) -> str:
+        response = self._raw.generate_content(prompt)
         return response.text
 
-    def __getattr__(self, name):
-        # Anything not explicitly wrapped above (e.g. generate_content itself,
-        # for callers that want the raw genai interface) falls through.
-        return getattr(self._raw, name)
+    @property
+    def raw(self) -> "genai.GenerativeModel":
+        """Escape hatch for any caller that specifically needs the raw
+        genai.GenerativeModel (e.g. to use streaming or multi-turn chat
+        features this adapter doesn't cover)."""
+        return self._raw
 
 
 _llm_client = None
@@ -79,7 +84,7 @@ def initialize() -> None:
 
     logger.info("Initializing Gemini client with model=%s", GEMINI_MODEL_NAME)
     genai.configure(api_key=settings.gemini_api_key)
-    _llm_client = _GeminiClientWrapper(genai.GenerativeModel(GEMINI_MODEL_NAME))
+    _llm_client = GeminiClient(genai.GenerativeModel(GEMINI_MODEL_NAME))
 
     logger.info("Loading embedding model=%s", EMBEDDING_MODEL_NAME)
     _embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)

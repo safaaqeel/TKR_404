@@ -1,7 +1,15 @@
 """
 Settings persistence. Powers the Settings page — profile, alert
-preferences, appearance. Currently nothing here updates anything;
-this fixes that.
+preferences, appearance.
+
+NOTE: GET /api/settings and PUT /api/settings are owned by app/routes.py
+(the legacy_router, mounted first in app/main.py) — that implementation
+reads/writes database/user_data.json directly with no required params.
+A GET "" was previously declared here too; it was dead code (routes.py's
+route always won the path+method match since its router is included
+first) and has been removed to avoid the confusing duplicate registration.
+PATCH "" is kept as a distinct, not-yet-wired-up per-user update path —
+it doesn't collide with routes.py's PUT (different HTTP method).
 """
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -19,12 +27,6 @@ class SettingsUpdate(BaseModel):
     weekly_summary_email: bool | None = None
     dark_mode: bool | None = None
     compact_sidebar: bool | None = None
-
-
-@router.get("")
-async def get_settings_for_user(user_id: str):
-    # TODO: load from database/json store
-    return {}
 
 
 @router.patch("")

@@ -25,7 +25,7 @@ except ImportError:
     # standalone tooling) — fall back to a plain dict alias.
     AgentState = Dict[str, Any]  # type: ignore
 
-from agents.memory_agent import read_memory_context
+from agents_pipeline.memory_agent import read_memory_context
 
 AGENT_NAME = "manager_agent"
 
@@ -83,8 +83,15 @@ def run(state: AgentState) -> AgentState:
         _log(state, "exit")
         return state
 
-    # 4. Route to whichever agent owns this step.
-    state["status"] = "running"
+    # 4. Route to whichever agent owns this step. Preserve "confirmed" here
+    #    rather than unconditionally overwriting it to "running" — automation_agent
+    #    runs its own independent high-risk gate (per its docstring, "enforced
+    #    here independently of Manager Agent's own gate") and needs to still see
+    #    status="confirmed" when it's dispatched, or that second gate would
+    #    immediately re-trigger awaiting_review right after a human just
+    #    approved the step. automation_agent flips status to "running" itself
+    #    once its own check passes.
+    state["status"] = "confirmed" if state.get("status") == "confirmed" else "running"
     state["next_agent"] = step.get("agent")
     _log(state, f"routing to {step.get('agent')} for step {step.get('step')}")
     _log(state, "exit")

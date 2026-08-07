@@ -24,7 +24,7 @@ import unittest
 from unittest import mock
 from unittest.mock import MagicMock
 
-from app.agents import analysis_agent, automation_agent, manager_agent, memory_agent, planner_agent, research_agent
+from app.agents_pipeline import analysis_agent, automation_agent, manager_agent, memory_agent, planner_agent, research_agent
 
 # --------------------------------------------------------------------------------
 # Stub out cross-package dependencies BEFORE importing anything under agents/.

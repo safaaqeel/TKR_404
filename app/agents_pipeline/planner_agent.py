@@ -23,8 +23,8 @@ try:
 except ImportError:
     AgentState = Dict[str, Any]  # type: ignore
 
-from models.model_loader import get_llm_client
-from models.prompt_templates import PLANNER_PROMPT
+from app.models.model_loader import get_llm_client
+from app.models.prompt_templates import PLANNER_PROMPT
 
 AGENT_NAME = "planner_agent"
 REQUIRED_STEP_KEYS = {"step", "agent", "action", "risk", "depends_on"}

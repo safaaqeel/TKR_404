@@ -156,41 +156,40 @@ _default_retriever: Retriever | None = None
 
 
 def _get_default_retriever() -> Retriever:
-    """Process-wide Retriever for the module-level convenience functions below
-    (used by app/api/knowledge.py) — separate from research_agent.py's own
-    instance so neither call site has to know the other exists."""
+    """Process-wide singleton Retriever, lazily constructed on first use."""
     global _default_retriever
     if _default_retriever is None:
         _default_retriever = Retriever()
     return _default_retriever
 
 
-def _chunk_to_dict(chunk: RetrievedChunk) -> dict:
-    return {
-        "text": chunk.text,
-        "chunk_index": chunk.chunk_index,
-        "page_number": chunk.page_number,
-        "similarity": round(chunk.similarity, 4),
-    }
+def retrieve_relevant_documents(
+    query: str,
+    top_k: int = DEFAULT_K,
+    doc_ids: list[str] | None = None,
+) -> list[dict]:
+    """Module-level convenience wrapper around Retriever.retrieve(), for
+    callers (app/api/knowledge.py, agents_pipeline/research_agent.py) that
+    just want plain JSON-serializable dicts rather than the dataclasses.
 
-
-def _document_to_dict(doc: RetrievedDocument) -> dict:
-    return {
-        "doc_id": doc.doc_id,
-        "filename": doc.filename,
-        "source_type": doc.source_type,
-        "best_similarity": round(doc.best_similarity, 4),
-        "chunks": [_chunk_to_dict(c) for c in doc.chunks],
-    }
-
-
-def retrieve_relevant_documents(query: str, top_k: int = 8) -> list[dict]:
+    Never raises (Retriever.retrieve() already fails closed to []).
     """
-    JSON-serializable convenience wrapper around Retriever.retrieve(), for HTTP
-    callers (app/api/knowledge.py's GET /api/knowledge/search) that need plain
-    dicts rather than RetrievedDocument dataclasses. Agents inside the workflow
-    graph should keep using Retriever directly (or research_agent.py's helper
-    below) since dataclasses are fine to carry around in-process.
-    """
-    documents = _get_default_retriever().retrieve(query, k=top_k)
-    return [_document_to_dict(doc) for doc in documents]
+    documents = _get_default_retriever().retrieve(query, k=top_k, doc_ids=doc_ids)
+    return [
+        {
+            "doc_id": doc.doc_id,
+            "filename": doc.filename,
+            "source_type": doc.source_type,
+            "best_similarity": doc.best_similarity,
+            "chunks": [
+                {
+                    "text": chunk.text,
+                    "chunk_index": chunk.chunk_index,
+                    "page_number": chunk.page_number,
+                    "similarity": chunk.similarity,
+                }
+                for chunk in doc.chunks
+            ],
+        }
+        for doc in documents
+    ]

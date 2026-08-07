@@ -25,7 +25,7 @@ except ImportError:
     AgentState = Dict[str, Any]  # type: ignore
 
 from models.model_loader import get_llm_client
-from models.prompt_templates import DECISION_PROMPT
+from models.prompt_templates import build_decision_prompt
 
 AGENT_NAME = "decision_agent"
 MAX_RETRIES_PER_STEP = 2
@@ -51,11 +51,20 @@ def _strip_code_fence(raw_text: str) -> str:
 
 
 def _judge(client, goal: str, output: Any) -> Dict[str, Any]:
-    prompt = DECISION_PROMPT.format(goal=goal, output=json.dumps(output, default=str))
+    prompt = build_decision_prompt(step_action=goal, step_result=output)
     raw = client.generate(prompt)
     try:
-        verdict = json.loads(_strip_code_fence(raw))
-    except json.JSONDecodeError:
+        raw_verdict = json.loads(_strip_code_fence(raw))
+        # DECISION_PROMPT (models/prompt_templates.py) asks the LLM for
+        # {"verdict": "pass"|"fail", "reason": ...} — normalize to an
+        # internal {"pass": bool, "reason": str} shape so every downstream
+        # check in this module (verdict.get("pass")) has one boolean
+        # contract to rely on, regardless of the LLM's exact string case.
+        verdict = {
+            "pass": str(raw_verdict.get("verdict", "")).strip().lower() == "pass",
+            "reason": raw_verdict.get("reason", ""),
+        }
+    except (json.JSONDecodeError, AttributeError):
         # Fail closed: an unparsable verdict is treated as a failed check,
         # never a silent pass.
         verdict = {"pass": False, "reason": "decision agent returned a non-JSON verdict"}
